@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ms:medicine xmlns:ms="medicine">
+    <ms:drug code="med_2348974">
+        <ms:name>Адицефр</ms:name>
+        <ms:pharm>Фармакар</ms:pharm>
+        <ms:group>Антибиотик</ms:group>
+        <ms:analogs>Биотаксим</ms:analogs>
+        <ms:analogs>Зинекс</ms:analogs>
+        <ms:version>Капсулы</ms:version>
+        <ms:certificate>
+            <ms:number>20</ms:number>
+            <ms:issueDate>2015-10-20</ms:issueDate>
+            <ms:expirationDate>2020-10-20</ms:expirationDate>
+            <ms:register>Центр экспертиз и испытаний в здравоохранении</ms:register>
+        </ms:certificate>
+        <ms:package>
+            <ms:packageType>Коробка</ms:packageType>
+            <ms:count>20</ms:count>
+            <ms:price>9.85</ms:price>
+        </ms:package>
+        <ms:dosage dosageType="count">2</ms:dosage>
+    </ms:drug>
+</ms:medicine>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="medicine"
+           xmlns:ms="medicine"
+           elementFormDefault="qualified">
+
+    <element name="medicine">
+        <complexType>
+            <sequence>
+                <element name="drug" type="ms:Drug" maxOccurs="16" />
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Drug">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="pharm" type="string"/>
+            <element name="group" type="ms:Group"/>
+            <element name="analogs" type="string" maxOccurs="2"/> <!--maxOccurs does not work-->
+            <element name="version" type="ms:Version"/>
+            <element name="certificate" type="ms:Certificate"/>
+            <element name="package" type="ms:Package"/>
+            <element name="dosage" type="ms:Dosage"/>
+        </sequence>
+        <attribute name="code" use="required">
+            <simpleType>
+                <restriction base="ID">
+                    <pattern value="med_[0-9]{5,10}"/>
+                </restriction>
+            </simpleType>
+        </attribute>
+        <attribute name="recipe" type="boolean" default="true"/>
+    </complexType>
+
+    <simpleType name="Group">
+        <restriction base="string">
+            <enumeration value="Антибиотик"/>
+            <enumeration value="Витамины"/>
+            <enumeration value="Для горла"/>
+            <enumeration value="Для носа"/>
+            <enumeration value="От диареи"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Version">
+        <restriction base="string">
+            <enumeration value="Таблетки"/>
+            <enumeration value="Капсулы"/>
+            <enumeration value="Порошок"/>
+            <enumeration value="Капли"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="Certificate">
+        <sequence>
+            <element name="number" type="integer"/>
+            <element name="issueDate" type="date"/>
+            <element name="expirationDate" type="date"/>
+            <element name="register" type="ms:Register"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Package">
+        <sequence>
+            <element name="packageType" type="ms:PackageType"/>
+            <element name="count" type="positiveInteger"/>
+            <element name="price" type="double"/>
+        </sequence>
+    </complexType>
+
+    <simpleType name="PackageType">
+        <restriction base="string">
+            <enumeration value="Банка"/>
+            <enumeration value="Коробка"/>
+            <enumeration value="Пастилка"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Register">
+        <restriction base="string">
+            <enumeration value="Министерство здравохранения"/>
+            <enumeration value="Центр экспертиз и испытаний в здравоохранении"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="Dosage">
+        <simpleContent>
+            <extension base="positiveInteger">
+                <attribute name="dosageType" use="required">
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="milligram"/>
+                            <enumeration value="milliliter"/>
+                            <enumeration value="count"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </simpleContent>
+    </complexType>
+</schema>
