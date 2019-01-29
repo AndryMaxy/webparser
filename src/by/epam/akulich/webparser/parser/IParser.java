@@ -1,8 +1,11 @@
 package by.epam.akulich.webparser.parser;
 
+import by.epam.akulich.webparser.bean.Drug;
+
 import java.io.InputStream;
+import java.util.List;
 
 public interface IParser {
 
-    String parse(InputStream inputStream);
+    List<Drug> parse(InputStream inputStream);
 }

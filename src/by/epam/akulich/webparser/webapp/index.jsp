@@ -19,7 +19,7 @@
     <p>Теперь нажмите на нужный парсер</p>
     <input type="submit" name="parser" value="DOM"/>
     <input type="submit" name="parser" value="SAX"/>
-    <input type="submit"  name="parser" value="StaX"/>
+    <input type="submit"  name="parser" value="StAX"/>
     <br>
 </form>
 </body>
