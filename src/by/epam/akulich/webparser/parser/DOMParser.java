@@ -29,9 +29,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class DOMParser extends BaseBuilder implements IParser {
 
@@ -44,6 +42,7 @@ public class DOMParser extends BaseBuilder implements IParser {
     @Override
     public List<Drug> parse(InputStream inputStream) {
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+        builderFactory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder documentBuilder;
         try {
             documentBuilder = builderFactory.newDocumentBuilder();
@@ -55,90 +54,84 @@ public class DOMParser extends BaseBuilder implements IParser {
             LOGGER.info("document is null");
             return null;
         }
-        document.getDocumentElement().normalize();
-        NodeList drugs = document.getElementsByTagName(XMLData.Tag.ROOT);
-        for (int i = 0; i < drugs.getLength(); i++) {
-            nodes.add(drugs.item(i));
-        }
+        NodeList drugs = document.getElementsByTagName(XMLData.Tag.DRUG);
         for (int i = 0; i < drugs.getLength(); i++) {
             drug = new Drug();
             Node drug = drugs.item(i);
-            if (drug.getNodeType() == Node.ELEMENT_NODE) {
-                Element drugElement = (Element) drug;
-                String code = drugElement.getAttribute(XMLData.Attribute.CODE);
-                buildCode(code);
-                NodeList drugChildren = drug.getChildNodes();
-                for (int j = 0; j < drugChildren.getLength(); j++) {
-                    Node node = drugChildren.item(i);
-                    if (drug.getNodeType() == Node.ELEMENT_NODE) {
-                        Element element = (Element) node;
-
-                        switch (element.getNodeName()) {
-                            case XMLData.Tag.NAME:
-                                buildName(element.getTextContent());
-                                break;
-                            case XMLData.Tag.PRODUCER:
-                                buildProducer(element.getTextContent());
-                                break;
-                            case XMLData.Tag.GROUP:
-                                String group = element.getTextContent();
-                                buildGroup(DrugGroup.valueByString(group));
-                                break;
-                            case XMLData.Tag.ANALOGS:
-                                setAnalogs(element);
-                                break;
-                            case XMLData.Tag.VERSIONS:
-                                setVersions(element);
-                        }
-                    }
+            Element drugElement = (Element) drug;
+            String code = drugElement.getAttribute(XMLData.Attribute.CODE);
+            buildCode(code);
+            NodeList drugChildren = drugElement.getChildNodes();
+            for (int j = 0; j < drugChildren.getLength(); j++) {
+                Node node = drugChildren.item(j);
+                switch (node.getNodeName()) {
+                    case XMLData.Tag.NAME:
+                        buildName(node.getTextContent());
+                        break;
+                    case XMLData.Tag.PRODUCER:
+                        buildProducer(node.getTextContent());
+                        break;
+                    case XMLData.Tag.GROUP:
+                        String group = node.getTextContent();
+                        buildGroup(DrugGroup.valueByString(group));
+                        break;
+                    case XMLData.Tag.ANALOGS:
+                        setAnalogs(node);
+                        break;
+                    case XMLData.Tag.VERSIONS:
+                        setVersions(node);
                 }
             }
-            this.drugs.add(this.drug);
+        this.drugs.add(this.drug);
         }
         return this.drugs;
     }
 
-    public void setVersions(Element element) {
-        NodeList firms = element.getChildNodes();
+    public void setVersions(Node node) {
+        NodeList firms = node.getChildNodes();
         for (int i = 0; i < firms.getLength(); i++) {
-            Element firm = (Element) firms.item(i);
-            String form = firm.getAttribute(XMLData.Attribute.FORM);
-            FormType formType = FormType.valueByString(form);
-            NodeList firmChildren = firm.getChildNodes();
-            String firmName = null;
-            Certificate certificate = null;
-            DrugPackage drugPackage = null;
-            Dosage dosage = null;
-            for (int j = 0; j < firmChildren.getLength(); j++) {
-                switch (firm.getNodeName()) {
-                    case XMLData.Tag.FIRM_NAME:
-                        firmName = firm.getTextContent();
-                        break;
-                    case XMLData.Tag.CERTIFICATE:
-                        certificate = createCertificate(element);
-                        break;
-                    case XMLData.Tag.PACKAGE:
-                        drugPackage = createDrugPackage(element);
-                        break;
-                    case XMLData.Tag.DOSAGE:
-                        dosage = createDosage(element);
-                        break;
+            Node child = firms.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                Element firm = (Element) firms.item(i);
+                String form = firm.getAttribute(XMLData.Attribute.FORM);
+                FormType formType = FormType.valueByString(form);
+                NodeList firmChildren = firm.getChildNodes();
+                String firmName = null;
+                Certificate certificate = null;
+                DrugPackage drugPackage = null;
+                Dosage dosage = null;
+                for (int j = 0; j < firmChildren.getLength(); j++) {
+                    switch (firm.getNodeName()) {
+                        case XMLData.Tag.FIRM_NAME:
+                            firmName = firm.getTextContent();
+                            break;
+                        case XMLData.Tag.CERTIFICATE:
+                            certificate = createCertificate(node);
+                            break;
+                        case XMLData.Tag.PACKAGE:
+                            drugPackage = createDrugPackage(node);
+                            break;
+                        case XMLData.Tag.DOSAGE:
+                            dosage = createDosage(node);
+                            break;
+                    }
                 }
+                this.firm = new Firm.Builder()
+                        .setName(firmName)
+                        .setCertificate(certificate)
+                        .setDrugPackage(drugPackage)
+                        .setDosage(dosage)
+                        .setFormType(formType)
+                        .build();
+                buildFirm(this.firm);
             }
-            this.firm = new Firm.Builder()
-                    .setName(firmName)
-                    .setCertificate(certificate)
-                    .setDrugPackage(drugPackage)
-                    .setDosage(dosage)
-                    .setFormType(formType)
-                    .build();
-            buildFirm(this.firm);
         }
 
     }
 
-    private Certificate createCertificate(Element element) {
+    private Certificate createCertificate(Node node) {
         Certificate certificate = new Certificate();
+        Element element = (Element) node;
         String register = element.getAttribute(XMLData.Attribute.REGISTER);
         DrugRegister drugRegister = DrugRegister.valueByString(register);
         certificate.setRegister(drugRegister);
@@ -163,8 +156,9 @@ public class DOMParser extends BaseBuilder implements IParser {
         return certificate;
     }
 
-    private DrugPackage createDrugPackage(Element element) {
+    private DrugPackage createDrugPackage(Node node) {
         DrugPackage drugPackage = new DrugPackage();
+        Element element = (Element) node;
         String packageType = element.getAttribute(XMLData.Attribute.PACKAGE_TYPE);
         DrugPackageType drugPackageType = DrugPackageType.valueByString(packageType);
         drugPackage.setType(drugPackageType);
@@ -185,8 +179,9 @@ public class DOMParser extends BaseBuilder implements IParser {
         return drugPackage;
     }
 
-    private Dosage createDosage(Element element){
+    private Dosage createDosage(Node node){
         Dosage dosage = new Dosage();
+        Element element = (Element) node;
         String dosageType = element.getAttribute(XMLData.Attribute.DOSAGE_TYPE);
         DosageType drugPackageType = DosageType.valueByString(dosageType);
         dosage.setType(drugPackageType);
@@ -206,30 +201,15 @@ public class DOMParser extends BaseBuilder implements IParser {
         return date;
     }
 
-    private void setAnalogs(Element element) {
-        NodeList analogs = element.getChildNodes();
+    private void setAnalogs(Node node) {
+        NodeList analogs = node.getChildNodes();
         for (int i = 0; i < analogs.getLength(); i++) {
-            Element child = (Element) analogs.item(i);
-            if (child.getTagName().equals(XMLData.Tag.ANALOG_NAME)) {
-                buildAnalog(child.getTextContent());
+            Node child = analogs.item(i);
+            if (child.getNodeName().equals(XMLData.Tag.ANALOG_NAME)) {
+                String content = analogs.item(i).getTextContent();
+                buildAnalog(content);
             }
         }
-    }
-
-    private Queue<Node> nodes = new LinkedList<>();
-
-    private boolean hasNext() {
-        return !nodes.isEmpty();
-    }
-
-    private Node next() {
-        Node node = nodes.peek();
-        if (node.hasChildNodes()) {
-            for (int i = 0; i < node.getChildNodes().getLength(); i++) {
-                nodes.add(node.getChildNodes().item(i));
-            }
-        }
-        return nodes.poll();
     }
 
     @Override
@@ -246,7 +226,7 @@ public class DOMParser extends BaseBuilder implements IParser {
 
     @Override
     public BaseBuilder buildProducer(String producer) {
-        drug.setFirm(producer);
+        drug.setProducer(producer);
         return this;
     }
 

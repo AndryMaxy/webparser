@@ -14,7 +14,8 @@
 <h3>Хай, здесь вы можете пропарсить XML файл</h3>
 <p>Сперва загрузите файл</p>
 <form action="parse" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" required="required"/>
+    XML <input type="file" name="file" required="required"/>
+    <%--Схема <input type="file" name="scheme" required="required"/>--%>
     <br>
     <p>Теперь нажмите на нужный парсер</p>
     <input type="submit" name="parser" value="DOM"/>

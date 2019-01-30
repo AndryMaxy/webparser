@@ -6,10 +6,10 @@ import java.util.List;
 public class Drug {
     private String code;
     private String name;
-    private String firm;
+    private String producer;
     private DrugGroup group;
     private List<String> analogs = new ArrayList<>();
-    private List<Firm> versions;
+    private List<Firm> versions = new ArrayList<>();
 
     public String getCode() {
         return code;
@@ -27,12 +27,12 @@ public class Drug {
         this.name = name;
     }
 
-    public String getFirm() {
-        return firm;
+    public String getProducer() {
+        return producer;
     }
 
-    public void setFirm(String firm) {
-        this.firm = firm;
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 
     public DrugGroup getGroup() {

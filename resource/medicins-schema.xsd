@@ -17,8 +17,8 @@
             <element name="name" type="string"/>
             <element name="producer" type="string"/>
             <element name="group" type="ms:DrugGroup"/>
-            <element name="analogs" type="ms:Analog"/>
-            <element name="versions" type="ms:Version" maxOccurs="4"/>
+            <element name="analogs" type="ms:Analog" minOccurs="0"/>
+            <element name="versions" type="ms:Version" minOccurs="0" maxOccurs="4"/>
         </sequence>
         <attribute name="code" use="required">
             <simpleType>
@@ -38,7 +38,7 @@
 
     <simpleType name="DrugGroup">
         <restriction base="string">
-            <enumeration value="Антибиотик"/>
+            <enumeration value="Антибиотики"/>
             <enumeration value="Витамины"/>
             <enumeration value="Для горла"/>
             <enumeration value="Для носа"/>
