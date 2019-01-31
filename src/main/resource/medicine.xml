@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ms:medicine xmlns:ms="medicine">
+    <drug code="med_2348974">
+        <name>Адицефр</name>
+        <producer>Фармакар</producer>
+        <group>Антибиотики</group>
+        <analogs>
+            <analogName>Биотаксим</analogName>
+            <analogName>Зинекс</analogName>
+        </analogs>
+        <versions>
+            <version form="Капсулы">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_A29</number>
+                    <issueDate>2015-10-20</issueDate>
+                    <expirationDate>2020-10-20</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>20</count>
+                    <price>9.85</price>
+                </package>
+                <dosage dosageType="штук">2</dosage>
+            </version>
+        </versions>
+    </drug>
+    <drug code="med_8348774">
+        <name>Фигня</name>
+        <producer>Ага</producer>
+        <group>Витамины</group>
+        <analogs>
+            <analogName>Бонстик</analogName>
+            <analogName>Зинекс</analogName>
+            <analogName>Контекс</analogName>
+        </analogs>
+        <versions>
+            <version form="Порошок">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_D39</number>
+                    <issueDate>2015-10-20</issueDate>
+                    <expirationDate>2020-10-20</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>30</count>
+                    <price>9.85</price>
+                </package>
+                <dosage dosageType="штук">2</dosage>
+            </version>
+        </versions>
+    </drug>
+</ms:medicine>
