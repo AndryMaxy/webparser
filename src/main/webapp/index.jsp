@@ -12,10 +12,9 @@
 </head>
 <body>
 <h3>Хай, здесь вы можете пропарсить XML файл</h3>
-<p>Сперва загрузите файл</p>
+<p>Сперва загрузите файл. (файл medicine.xml в папке с ресурсами)</p>
 <form action="parse" method="post" enctype="multipart/form-data">
     XML <input type="file" name="file" required="required"/>
-    <%--Схема <input type="file" name="scheme" required="required"/>--%>
     <br>
     <p>Теперь нажмите на нужный парсер</p>
     <input type="submit" name="parser" value="DOM"/>
@@ -23,5 +22,12 @@
     <input type="submit"  name="parser" value="StAX"/>
     <br>
 </form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>можно загрузить файл medicine2.xml и посмотреть что будет</p>
 </body>
 </html>

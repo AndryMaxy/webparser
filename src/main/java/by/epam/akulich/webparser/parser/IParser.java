@@ -1,6 +1,6 @@
 package by.epam.akulich.webparser.parser;
 
-import by.epam.akulich.webparser.bean.Drug;
+import by.epam.akulich.webparser.bean.Medicine;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IParser {
 
-    List<Drug> parse(File file);
+    List<Medicine> parse(File file);
 
     default LocalDate parseDate(String text) {
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-d");

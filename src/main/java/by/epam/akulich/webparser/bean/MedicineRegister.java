@@ -1,12 +1,12 @@
 package by.epam.akulich.webparser.bean;
 
-public enum DrugRegister {
+public enum MedicineRegister {
     MINISTRY_OF_HEALTH_CARE("Министерство здравохранения"),
     CETHC("Центр экспертиз и испытаний в здравоохранении");
 
     private String name;
 
-    DrugRegister(String name) {
+    MedicineRegister(String name) {
         this.name = name;
     }
 
@@ -14,8 +14,8 @@ public enum DrugRegister {
         return name;
     }
 
-    public static DrugRegister valueByString(String name) {
-        for (DrugRegister register : DrugRegister.values()){
+    public static MedicineRegister valueByString(String name) {
+        for (MedicineRegister register : MedicineRegister.values()){
             if (register.getName().equals(name)) {
                 return register;
             }

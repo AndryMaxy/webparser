@@ -28,28 +28,28 @@
         <th>Дозировка</th>
         <th>Тип дозировки</th>
     </tr>
-    <c:forEach items="${drugs}" var="drug">
+    <c:forEach items="${medicines}" var="medicine">
         <tr align="center">
-            <td><c:out value="${drug.code}"/></td>
-            <td><c:out value="${drug.name}"/></td>
-            <td><c:out value="${drug.producer}"/></td>
-            <td><c:out value="${drug.group.name}"/></td>
-            <td><c:forEach items="${drug.analogs}" var="analog">
+            <td><c:out value="${medicine.code}"/></td>
+            <td><c:out value="${medicine.name}"/></td>
+            <td><c:out value="${medicine.producer}"/></td>
+            <td><c:out value="${medicine.group.name}"/></td>
+            <td><c:forEach items="${medicine.analogs}" var="analog">
                 <table>
                     <tr>
                         <td><c:out value="${analog}"/></td>
                     </tr>
                 </table>
             </c:forEach></td>
-            <c:forEach items="${drug.versions}" var="version">
+            <c:forEach items="${medicine.versions}" var="version">
                 <td><c:out value="${version.versionType.name}"/></td>
                 <td><c:out value="${version.certificate.number}"/></td>
                 <td><c:out value="${version.certificate.issueDate}"/></td>
                 <td><c:out value="${version.certificate.expirationDate}"/></td>
                 <td><c:out value="${version.certificate.register.name}"/></td>
-                <td><c:out value="${version.drugPackage.count}"/></td>
-                <td><c:out value="${version.drugPackage.price}"/></td>
-                <td><c:out value="${version.drugPackage.type.name}"/></td>
+                <td><c:out value="${version.medicinePackage.count}"/></td>
+                <td><c:out value="${version.medicinePackage.price}"/></td>
+                <td><c:out value="${version.medicinePackage.type.name}"/></td>
                 <td><c:out value="${version.dosage.value}"/></td>
                 <td><c:out value="${version.dosage.type.name}"/></td>
             </c:forEach>

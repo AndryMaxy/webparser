@@ -2,14 +2,14 @@ package by.epam.akulich.webparser.builder;
 
 import by.epam.akulich.webparser.bean.Certificate;
 import by.epam.akulich.webparser.bean.Dosage;
-import by.epam.akulich.webparser.bean.DrugPackage;
+import by.epam.akulich.webparser.bean.MedicinePackage;
 import by.epam.akulich.webparser.bean.Version;
 import by.epam.akulich.webparser.bean.VersionType;
 
 public class VersionBuilder {
     private VersionType type;
     private Certificate certificate;
-    private DrugPackage drugPackage;
+    private MedicinePackage medicinePackage;
     private Dosage dosage;
 
     public VersionBuilder buildType(VersionType type) {
@@ -22,8 +22,8 @@ public class VersionBuilder {
         return this;
     }
 
-    public VersionBuilder buildDrugPackage(DrugPackage drugPackage) {
-        this.drugPackage = drugPackage;
+    public VersionBuilder buildMedicinePackage(MedicinePackage medicinePackage) {
+        this.medicinePackage = medicinePackage;
         return this;
     }
 
@@ -36,7 +36,7 @@ public class VersionBuilder {
         Version version = new Version();
         version.setVersionType(type);
         version.setCertificate(certificate);
-        version.setDrugPackage(drugPackage);
+        version.setMedicinePackage(medicinePackage);
         version.setDosage(dosage);
         return version;
     }

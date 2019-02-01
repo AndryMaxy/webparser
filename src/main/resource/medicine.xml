@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ms:medicine xmlns:ms="medicine">
-    <drug code="med_2348974">
+<ms:medicines xmlns:ms="medicines">
+    <medicine code="med_2348974">
         <name>Адицефр</name>
         <producer>Фармакар</producer>
         <group>Антибиотики</group>
@@ -22,8 +22,8 @@
                 <dosage dosageType="штук">2</dosage>
             </version>
         </versions>
-    </drug>
-    <drug code="med_8348774">
+    </medicine>
+    <medicine code="med_8348774">
         <name>Фигня</name>
         <producer>Ага</producer>
         <group>Витамины</group>
@@ -46,5 +46,5 @@
                 <dosage dosageType="штук">2</dosage>
             </version>
         </versions>
-    </drug>
-</ms:medicine>
+    </medicine>
+</ms:medicines>

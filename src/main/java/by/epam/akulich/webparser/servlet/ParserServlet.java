@@ -1,6 +1,6 @@
 package by.epam.akulich.webparser.servlet;
 
-import by.epam.akulich.webparser.bean.Drug;
+import by.epam.akulich.webparser.bean.Medicine;
 import by.epam.akulich.webparser.factory.ParserFactory;
 import by.epam.akulich.webparser.generator.FileGenerator;
 import by.epam.akulich.webparser.parser.IParser;
@@ -31,22 +31,23 @@ public class ParserServlet extends HttpServlet {
         Part filePart = req.getPart("file");
         String parserName = req.getParameter("parser");
         InputStream fileContent = filePart.getInputStream();
-        //ДОБАВИТЬ ДЕФОЛ!!!!!!! В СВИТЧ
+
         File scheme = new File(ParserServlet.class.getResource("/medicine-scheme.xsd").getPath());
+
         FileGenerator generator = new FileGenerator();
-        File xml = generator.generateTmpFile(fileContent);
+        File xml = generator.generateXMLFile(fileContent);
 
         XMLValidator validator = new XMLValidator();
         boolean isValid = validator.validate(xml, scheme);
 
         if (isValid) {
             IParser parser = ParserFactory.getInstance().getParser(parserName);
-            List<Drug> drugs = parser.parse(xml);
-            req.setAttribute("drugs", drugs);
+            List<Medicine> medicines = parser.parse(xml);
+            req.setAttribute("medicines", medicines);
             req.getRequestDispatcher("/WEB-INF/jsp/result.jsp").forward(req, resp);
         } else {
             LOGGER.info("XML file is not valid");
-            resp.sendRedirect("/index.jsp");
+            req.getRequestDispatcher("/WEB-INF/jsp/notValid.jsp").forward(req,resp);
         }
     }
 }

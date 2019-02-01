@@ -1,13 +1,13 @@
 package by.epam.akulich.webparser.bean;
 
-public enum DrugPackageType {
+public enum MedicinePackageType {
     JAR("Банка"),
     BOX("Коробка"),
     PASTILLE("Пастилка");
 
     private String name;
 
-    DrugPackageType(String name) {
+    MedicinePackageType(String name) {
         this.name = name;
     }
 
@@ -15,8 +15,8 @@ public enum DrugPackageType {
         return name;
     }
 
-    public static DrugPackageType valueByString(String name) {
-        for (DrugPackageType type : DrugPackageType.values()){
+    public static MedicinePackageType valueByString(String name) {
+        for (MedicinePackageType type : MedicinePackageType.values()){
             if (type.getName().equals(name)) {
                 return type;
             }

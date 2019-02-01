@@ -1,7 +1,7 @@
 package by.epam.akulich.webparser.builder;
 
 import by.epam.akulich.webparser.bean.Certificate;
-import by.epam.akulich.webparser.bean.DrugRegister;
+import by.epam.akulich.webparser.bean.MedicineRegister;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ public class CertificateBuilder {
     private String number;
     private LocalDate issueDate;
     private LocalDate expirationDate;
-    private DrugRegister register;
+    private MedicineRegister register;
 
     public CertificateBuilder buildNumber(String number){
         this.number = number;
@@ -26,7 +26,7 @@ public class CertificateBuilder {
         return this;
     }
 
-    public CertificateBuilder buildRegister(DrugRegister register){
+    public CertificateBuilder buildRegister(MedicineRegister register){
         this.register = register;
         return this;
     }

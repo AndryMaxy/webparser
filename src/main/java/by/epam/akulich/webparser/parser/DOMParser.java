@@ -2,15 +2,15 @@ package by.epam.akulich.webparser.parser;
 
 import by.epam.akulich.webparser.XMLData;
 import by.epam.akulich.webparser.bean.DosageType;
-import by.epam.akulich.webparser.bean.Drug;
-import by.epam.akulich.webparser.bean.DrugGroup;
-import by.epam.akulich.webparser.bean.DrugPackageType;
-import by.epam.akulich.webparser.bean.DrugRegister;
+import by.epam.akulich.webparser.bean.Medicine;
+import by.epam.akulich.webparser.bean.MedicineGroup;
+import by.epam.akulich.webparser.bean.MedicinePackageType;
+import by.epam.akulich.webparser.bean.MedicineRegister;
 import by.epam.akulich.webparser.bean.VersionType;
 import by.epam.akulich.webparser.builder.CertificateBuilder;
 import by.epam.akulich.webparser.builder.DosageBuilder;
-import by.epam.akulich.webparser.builder.DrugBuilder;
-import by.epam.akulich.webparser.builder.DrugPackageBuilder;
+import by.epam.akulich.webparser.builder.MedicineBuilder;
+import by.epam.akulich.webparser.builder.MedicinePackageBuilder;
 import by.epam.akulich.webparser.builder.VersionBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,19 +26,18 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DOMParser implements IParser {
 
     private static final Logger LOGGER = LogManager.getLogger(DOMParser.class.getSimpleName());
-    private DrugBuilder drugBuilder = new DrugBuilder();
+    private MedicineBuilder medicineBuilder = new MedicineBuilder();
     private VersionBuilder versionBuilder = new VersionBuilder();
     private CertificateBuilder certificateBuilder = new CertificateBuilder();
-    private DrugPackageBuilder drugPackageBuilder = new DrugPackageBuilder();
+    private MedicinePackageBuilder medicinePackageBuilder = new MedicinePackageBuilder();
     private DosageBuilder dosageBuilder = new DosageBuilder();
-    private List<Drug> drugs = new ArrayList<>();
+    private List<Medicine> medicines = new ArrayList<>();
 
     public static void main(String[] args) {
         File file = new File("medicine.xml");
@@ -47,7 +46,7 @@ public class DOMParser implements IParser {
     }
 
     @Override
-    public List<Drug> parse(File file) {
+    public List<Medicine> parse(File file) {
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder documentBuilder;
@@ -62,26 +61,26 @@ public class DOMParser implements IParser {
             LOGGER.info("document is null");
             return null;
         }
-        NodeList drugList = document.getElementsByTagName(XMLData.Tag.DRUG);
-        for (int i = 0; i < drugList.getLength(); i++) {
-            Element drugElement = (Element) drugList.item(i);
-            String code = drugElement.getAttribute(XMLData.Attribute.CODE);
-            drugBuilder.buildCode(code);
-            NodeList drugChildren = drugElement.getChildNodes();
-            for (int j = 0; j < drugChildren.getLength(); j++) {
-                Node node = drugChildren.item(j);
+        NodeList medicineList = document.getElementsByTagName(XMLData.Tag.MEDICINE);
+        for (int i = 0; i < medicineList.getLength(); i++) {
+            Element medicineElement = (Element) medicineList.item(i);
+            String code = medicineElement.getAttribute(XMLData.Attribute.CODE);
+            medicineBuilder.buildCode(code);
+            NodeList medicineChildren = medicineElement.getChildNodes();
+            for (int j = 0; j < medicineChildren.getLength(); j++) {
+                Node node = medicineChildren.item(j);
                 if (isElement(node)) {
                     Element element = (Element) node;
                     switch (element.getNodeName()) {
                         case XMLData.Tag.NAME:
-                            drugBuilder.buildName(element.getTextContent());
+                            medicineBuilder.buildName(element.getTextContent());
                             break;
                         case XMLData.Tag.PRODUCER:
-                            drugBuilder.buildProducer(element.getTextContent());
+                            medicineBuilder.buildProducer(element.getTextContent());
                             break;
                         case XMLData.Tag.GROUP:
                             String group = element.getTextContent();
-                            drugBuilder.buildGroup(DrugGroup.valueByString(group));
+                            medicineBuilder.buildGroup(MedicineGroup.valueByString(group));
                             break;
                         case XMLData.Tag.ANALOGS:
                             setAnalogs(element);
@@ -91,9 +90,9 @@ public class DOMParser implements IParser {
                     }
                 }
             }
-            drugs.add(drugBuilder.build());
+            medicines.add(medicineBuilder.build());
         }
-        return drugs;
+        return medicines;
     }
 
     private void setAnalogs(Node node) {
@@ -102,7 +101,7 @@ public class DOMParser implements IParser {
             Node child = analogs.item(i);
             if (child.getNodeName().equals(XMLData.Tag.ANALOG_NAME)) {
                 String content = child.getTextContent();
-                drugBuilder.buildAnalog(content);
+                medicineBuilder.buildAnalog(content);
             }
         }
     }
@@ -130,7 +129,7 @@ public class DOMParser implements IParser {
                                 createCertificate(childElement);
                                 break;
                             case XMLData.Tag.PACKAGE:
-                                createDrugPackage(childElement);
+                                createMedicinePackage(childElement);
                                 break;
                             case XMLData.Tag.DOSAGE:
                                 createDosage(childElement);
@@ -139,9 +138,9 @@ public class DOMParser implements IParser {
                     }
                 }
             }
-            drugBuilder
+            medicineBuilder
                     .buildVersion(versionBuilder.buildCertificate(certificateBuilder.build())
-                    .buildDrugPackage(drugPackageBuilder.build())
+                    .buildMedicinePackage(medicinePackageBuilder.build())
                     .buildDosage(dosageBuilder.build())
                     .build());
         }
@@ -150,8 +149,8 @@ public class DOMParser implements IParser {
 
     private void createCertificate(Element element) {
         String register = element.getAttribute(XMLData.Attribute.REGISTER);
-        DrugRegister drugRegister = DrugRegister.valueByString(register);
-        certificateBuilder.buildRegister(drugRegister);
+        MedicineRegister medicineRegister = MedicineRegister.valueByString(register);
+        certificateBuilder.buildRegister(medicineRegister);
         NodeList analogs = element.getChildNodes();
         for (int i = 0; i < analogs.getLength(); i++) {
             Node child = analogs.item(i);
@@ -172,23 +171,21 @@ public class DOMParser implements IParser {
         }
     }
 
-    private void createDrugPackage(Element element) {
+    private void createMedicinePackage(Element element) {
         String packageType = element.getAttribute(XMLData.Attribute.PACKAGE_TYPE);
-        DrugPackageType drugPackageType = DrugPackageType.valueByString(packageType);
-        drugPackageBuilder.buildDrugPackegeType(drugPackageType);
+        MedicinePackageType medicinePackageType = MedicinePackageType.valueByString(packageType);
+        medicinePackageBuilder.buildMedicinePackageType(medicinePackageType);
         NodeList childNodes = element.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node child = childNodes.item(i);
-            System.out.println("childs " + child.getTextContent());
             switch (child.getNodeName()) {
                 case XMLData.Tag.COUNT:
-                    System.out.println("count " + child.getTextContent());
                     int count = Integer.parseInt(child.getTextContent());
-                    drugPackageBuilder.buildCount(count);
+                    medicinePackageBuilder.buildCount(count);
                     break;
                 case XMLData.Tag.PRICE:
                     double price = Double.parseDouble(child.getTextContent());
-                    drugPackageBuilder.buildPrice(price);
+                    medicinePackageBuilder.buildPrice(price);
                     break;
             }
         }
@@ -196,8 +193,8 @@ public class DOMParser implements IParser {
 
     private void createDosage(Element element) {
         String dosageType = element.getAttribute(XMLData.Attribute.DOSAGE_TYPE);
-        DosageType drugPackageType = DosageType.valueByString(dosageType);
-        dosageBuilder.buildType(drugPackageType);
+        DosageType medicinePackageType = DosageType.valueByString(dosageType);
+        dosageBuilder.buildType(medicinePackageType);
         int value = Integer.parseInt(element.getTextContent());
         dosageBuilder.buildValue(value);
     }

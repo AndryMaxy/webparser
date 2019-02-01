@@ -1,9 +1,9 @@
 package by.epam.akulich.webparser.bean;
 
-public class DrugPackage {
+public class MedicinePackage {
     private int count;
     private double price;
-    private DrugPackageType type;
+    private MedicinePackageType type;
 
     public int getCount() {
         return count;
@@ -21,11 +21,11 @@ public class DrugPackage {
         this.price = price;
     }
 
-    public DrugPackageType getType() {
+    public MedicinePackageType getType() {
         return type;
     }
 
-    public void setType(DrugPackageType type) {
+    public void setType(MedicinePackageType type) {
         this.type = type;
     }
 }

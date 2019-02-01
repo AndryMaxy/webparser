@@ -3,8 +3,8 @@ package by.epam.akulich.webparser;
 public final class XMLData {
 
     public static final class Tag {
-        public static final String ROOT = "ms:medicine";
-        public static final String DRUG = "drug";
+        public static final String ROOT = "ms:medicines";
+        public static final String MEDICINE = "medicine";
         public static final String NAME = "name";
         public static final String PRODUCER = "producer";
         public static final String GROUP = "group";
@@ -12,7 +12,6 @@ public final class XMLData {
         public static final String ANALOG_NAME = "analogName";
         public static final String VERSIONS = "versions";
         public static final String VERSION = "version";
-        public static final String FIRM_NAME = "firmName";
         public static final String CERTIFICATE = "certificate";
         public static final String NUMBER = "number";
         public static final String ISSUE_DATE = "issueDate";

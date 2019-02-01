@@ -3,7 +3,7 @@ package by.epam.akulich.webparser.bean;
 public class Version {
     private VersionType versionType;
     private Certificate certificate;
-    private DrugPackage drugPackage;
+    private MedicinePackage medicinePackage;
     private Dosage dosage;
 
     public VersionType getVersionType() {
@@ -14,8 +14,8 @@ public class Version {
         return certificate;
     }
 
-    public DrugPackage getDrugPackage() {
-        return drugPackage;
+    public MedicinePackage getMedicinePackage() {
+        return medicinePackage;
     }
 
     public Dosage getDosage() {
@@ -30,8 +30,8 @@ public class Version {
         this.certificate = certificate;
     }
 
-    public void setDrugPackage(DrugPackage drugPackage) {
-        this.drugPackage = drugPackage;
+    public void setMedicinePackage(MedicinePackage medicinePackage) {
+        this.medicinePackage = medicinePackage;
     }
 
     public void setDosage(Dosage dosage) {

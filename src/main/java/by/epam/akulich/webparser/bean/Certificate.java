@@ -6,7 +6,7 @@ public class Certificate {
     private String number;
     private LocalDate issueDate;
     private LocalDate expirationDate;
-    private DrugRegister register;
+    private MedicineRegister register;
 
     public String getNumber() {
         return number;
@@ -32,11 +32,11 @@ public class Certificate {
         this.expirationDate = expirationDate;
     }
 
-    public DrugRegister getRegister() {
+    public MedicineRegister getRegister() {
         return register;
     }
 
-    public void setRegister(DrugRegister register) {
+    public void setRegister(MedicineRegister register) {
         this.register = register;
     }
 }

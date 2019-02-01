@@ -3,11 +3,11 @@ package by.epam.akulich.webparser.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Drug {
+public class Medicine {
     private String code;
     private String name;
     private String producer;
-    private DrugGroup group;
+    private MedicineGroup group;
     private List<String> analogs;
     private List<Version> versions;
 
@@ -35,11 +35,11 @@ public class Drug {
         this.producer = producer;
     }
 
-    public DrugGroup getGroup() {
+    public MedicineGroup getGroup() {
         return group;
     }
 
-    public void setGroup(DrugGroup group) {
+    public void setGroup(MedicineGroup group) {
         this.group = group;
     }
 

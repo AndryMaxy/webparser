@@ -15,7 +15,7 @@ public class FileGenerator {
 
     private static Logger LOGGER = LogManager.getLogger(FileGenerator.class.getSimpleName());
 
-    public File generateTmpFile(InputStream inputStream){
+    public File generateXMLFile(InputStream inputStream){
         Random random = new Random();
         Path path = Paths.get("/classes/" + random.nextInt(Integer.MAX_VALUE) + "tmp.xml");
         try {

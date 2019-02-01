@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="medicine"
-        xmlns:ms="medicine">
+        targetNamespace="medicines"
+        xmlns:ms="medicines">
 
-    <element name="medicine">
+    <element name="medicines">
         <complexType>
             <sequence>
-                <element name="drug" type="ms:Drug" maxOccurs="16"/>
+                <element name="medicine" type="ms:Medicine" maxOccurs="16"/>
             </sequence>
         </complexType>
     </element>
 
-    <complexType name="Drug">
+    <complexType name="Medicine">
         <sequence>
             <element name="name" type="string"/>
             <element name="producer" type="string"/>

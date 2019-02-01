@@ -1,41 +1,41 @@
 package by.epam.akulich.webparser.builder;
 
-import by.epam.akulich.webparser.bean.Drug;
-import by.epam.akulich.webparser.bean.DrugGroup;
+import by.epam.akulich.webparser.bean.Medicine;
+import by.epam.akulich.webparser.bean.MedicineGroup;
 import by.epam.akulich.webparser.bean.Version;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrugBuilder {
+public class MedicineBuilder {
     private String code;
     private String name;
     private String producer;
-    private DrugGroup group;
+    private MedicineGroup group;
     private List<String> analogs;
     private List<Version> versions;
 
-    public DrugBuilder buildCode(String code) {
+    public MedicineBuilder buildCode(String code) {
         this.code = code;
         return this;
     }
 
-    public DrugBuilder buildName(String name) {
+    public MedicineBuilder buildName(String name) {
         this.name = name;
         return this;
     }
 
-    public DrugBuilder buildProducer(String producer) {
+    public MedicineBuilder buildProducer(String producer) {
         this.producer = producer;
         return this;
     }
 
-    public DrugBuilder buildGroup(DrugGroup group) {
+    public MedicineBuilder buildGroup(MedicineGroup group) {
         this.group = group;
         return this;
     }
 
-    public DrugBuilder buildAnalog(String analog) {
+    public MedicineBuilder buildAnalog(String analog) {
         if (this.analogs == null) {
             this.analogs = new ArrayList<>();
         }
@@ -43,7 +43,7 @@ public class DrugBuilder {
         return this;
     }
 
-    public DrugBuilder buildVersion(Version version) {
+    public MedicineBuilder buildVersion(Version version) {
         if (this.versions == null) {
             this.versions = new ArrayList<>();
         }
@@ -51,14 +51,14 @@ public class DrugBuilder {
         return this;
     }
 
-    public Drug build(){
-        Drug drug = new Drug();
-        drug.setCode(code);
-        drug.setName(name);
-        drug.setProducer(producer);
-        drug.setGroup(group);
-        drug.setAnalogs(analogs);
-        drug.setVersions(versions);
-        return drug;
+    public Medicine build(){
+        Medicine medicine = new Medicine();
+        medicine.setCode(code);
+        medicine.setName(name);
+        medicine.setProducer(producer);
+        medicine.setGroup(group);
+        medicine.setAnalogs(analogs);
+        medicine.setVersions(versions);
+        return medicine;
     }
 }

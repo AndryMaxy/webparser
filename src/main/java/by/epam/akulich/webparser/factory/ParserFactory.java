@@ -3,6 +3,7 @@ package by.epam.akulich.webparser.factory;
 import by.epam.akulich.webparser.parser.DOMParser;
 import by.epam.akulich.webparser.parser.IParser;
 import by.epam.akulich.webparser.parser.MySAXParser;
+import by.epam.akulich.webparser.parser.StAXParser;
 
 public class ParserFactory {
 
@@ -26,6 +27,8 @@ public class ParserFactory {
                 return new DOMParser();
             case SAX :
                 return new MySAXParser();
+            case STAX:
+                return new StAXParser();
             default:
                 throw new IllegalArgumentException();
         }
