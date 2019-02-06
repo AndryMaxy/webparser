@@ -1,26 +1,25 @@
 package by.epam.akulich.webparser.builder;
 
 import by.epam.akulich.webparser.bean.Dosage;
-import by.epam.akulich.webparser.bean.DosageType;
 
 public class DosageBuilder {
-    private int value;
-    private DosageType type;
+    private String value;
+    private String period;
 
-    public DosageBuilder buildValue(int value){
+    public DosageBuilder buildValue(String value){
         this.value = value;
         return this;
     }
 
-    public DosageBuilder buildType(DosageType type){
-        this.type = type;
+    public DosageBuilder buildPeriod(String period){
+        this.period = period;
         return this;
     }
 
     public Dosage build(){
         Dosage dosage = new Dosage();
         dosage.setValue(value);
-        dosage.setType(type);
+        dosage.setPeriod(period);
         return dosage;
     }
 }

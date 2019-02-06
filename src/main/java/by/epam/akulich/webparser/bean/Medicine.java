@@ -10,6 +10,7 @@ public class Medicine {
     private MedicineGroup group;
     private List<String> analogs;
     private List<Version> versions;
+    private int versionsSize;
 
     public String getCode() {
         return code;
@@ -51,12 +52,6 @@ public class Medicine {
         this.analogs = analogs;
     }
 
-    public void addAnalog(String analog) {
-        if (this.analogs == null) {
-            this.analogs = new ArrayList<>();
-        }
-        this.analogs.add(analog);
-    }
 
     public List<Version> getVersions() {
         return versions;
@@ -69,7 +64,43 @@ public class Medicine {
         this.versions = versions;
     }
 
-    public void addVersion(Version version) {
-        this.versions.add(version);
+    public int getVersionsSize() {
+        return versionsSize;
+    }
+
+    public void setVersionsSize(int versionsSize) {
+       this.versionsSize = versionsSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Medicine)) {
+            return false;
+        }
+        Medicine medicine = (Medicine) o;
+        return versionsSize == medicine.versionsSize &&
+                code.equals(medicine.code) &&
+                name.equals(medicine.name) &&
+                producer.equals(medicine.producer) &&
+                group == medicine.group &&
+                analogs.equals(medicine.analogs) &&
+                versions.equals(medicine.versions);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (code == null ? 0 : code.hashCode());
+        result = prime * result + (name == null ? 0 : name.hashCode());
+        result = prime * result + (producer == null ? 0 : producer.hashCode());
+        result = prime * result + (group == null ? 0 : group.hashCode());
+        result = prime * result + (analogs == null ? 0 : analogs.hashCode());
+        result = prime * result + (versions == null ? 0 : versions.hashCode());
+        result = prime * result + versionsSize;
+        return result;
     }
 }

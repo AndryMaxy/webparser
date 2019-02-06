@@ -4,11 +4,11 @@ import by.epam.akulich.webparser.bean.MedicinePackage;
 import by.epam.akulich.webparser.bean.MedicinePackageType;
 
 public class MedicinePackageBuilder {
-    private int count;
+    private String count;
     private double price;
     private MedicinePackageType type;
 
-    public MedicinePackageBuilder buildCount(int count){
+    public MedicinePackageBuilder buildCount(String count){
         this.count = count;
         return this;
     }

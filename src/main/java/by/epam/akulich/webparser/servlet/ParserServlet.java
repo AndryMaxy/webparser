@@ -7,6 +7,7 @@ import by.epam.akulich.webparser.parser.IParser;
 import by.epam.akulich.webparser.validator.XMLValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +36,6 @@ public class ParserServlet extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
 
         File scheme = new File(ParserServlet.class.getResource("/medicine-scheme.xsd").getPath());
-
         FileGenerator generator = new FileGenerator();
         File xml = generator.generateXMLFile(fileContent);
 
@@ -42,12 +44,27 @@ public class ParserServlet extends HttpServlet {
 
         if (isValid) {
             IParser parser = ParserFactory.getInstance().getParser(parserName);
-            List<Medicine> medicines = parser.parse(xml);
+            List<Medicine> medicines;
+            try {
+                medicines = parser.parse(xml);
+            } catch (XMLStreamException | SAXException | ParserConfigurationException e) {
+                LOGGER.error("Parsing exception.", e);
+                return;
+            }
+            deleteFile(xml);
             req.setAttribute("medicines", medicines);
             req.getRequestDispatcher("/WEB-INF/jsp/result.jsp").forward(req, resp);
         } else {
             LOGGER.info("XML file is not valid");
             req.getRequestDispatcher("/WEB-INF/jsp/notValid.jsp").forward(req,resp);
+        }
+    }
+
+    private void deleteFile(File file) {
+        if (file.delete()) {
+            LOGGER.info("Temp file deleted");
+        } else {
+            LOGGER.info("Temp file is not deleted");
         }
     }
 }

@@ -4,7 +4,6 @@ import by.epam.akulich.webparser.bean.Medicine;
 import by.epam.akulich.webparser.bean.MedicineGroup;
 import by.epam.akulich.webparser.bean.Version;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MedicineBuilder {
@@ -35,19 +34,13 @@ public class MedicineBuilder {
         return this;
     }
 
-    public MedicineBuilder buildAnalog(String analog) {
-        if (this.analogs == null) {
-            this.analogs = new ArrayList<>();
-        }
-        analogs.add(analog);
+    public MedicineBuilder buildAnalogs(List<String> analogs) {
+        this.analogs = analogs;
         return this;
     }
 
-    public MedicineBuilder buildVersion(Version version) {
-        if (this.versions == null) {
-            this.versions = new ArrayList<>();
-        }
-        versions.add(version);
+    public MedicineBuilder buildVersions(List<Version> versions) {
+        this.versions = versions;
         return this;
     }
 
@@ -59,6 +52,7 @@ public class MedicineBuilder {
         medicine.setGroup(group);
         medicine.setAnalogs(analogs);
         medicine.setVersions(versions);
+        medicine.setVersionsSize(versions.size());
         return medicine;
     }
 }

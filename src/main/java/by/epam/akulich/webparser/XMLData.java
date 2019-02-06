@@ -20,6 +20,8 @@ public final class XMLData {
         public static final String COUNT = "count";
         public static final String PRICE = "price";
         public static final String DOSAGE = "dosage";
+        public static final String DOSAGE_VALUE = "value";
+        public static final String DOSAGE_PERIOD = "period";
     }
 
     public static final class Attribute {
@@ -27,6 +29,5 @@ public final class XMLData {
         public static final String FORM = "form";
         public static final String REGISTER = "register";
         public static final String PACKAGE_TYPE = "packageType";
-        public static final String DOSAGE_TYPE = "dosageType";
     }
 }

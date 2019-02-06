@@ -93,7 +93,13 @@
 
     <complexType name="Package">
         <sequence>
-            <element name="count" type="positiveInteger"/>
+            <element name="count">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[1-9][0-9]{0,3} (мг|мл|шт)"/>
+                    </restriction>
+                </simpleType>
+            </element>
             <element name="price" type="double"/>
         </sequence>
         <attribute name="packageType" use="required">
@@ -101,25 +107,27 @@
                 <restriction base="string">
                     <enumeration value="Банка"/>
                     <enumeration value="Коробка"/>
-                    <enumeration value="Пастилка"/>
                 </restriction>
             </simpleType>
         </attribute>
     </complexType>
 
     <complexType name="Dosage">
-        <simpleContent>
-            <extension base="positiveInteger">
-                <attribute name="dosageType" use="required">
-                    <simpleType>
-                        <restriction base="string">
-                            <enumeration value="миллиграмм"/>
-                            <enumeration value="миллилитр"/>
-                            <enumeration value="штук"/>
-                        </restriction>
-                    </simpleType>
-                </attribute>
-            </extension>
-        </simpleContent>
+        <sequence>
+            <element name="value">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[0-9]{0,3} (мг|мл|шт)"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="period">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[1-9]{0,3} (дн|нед|мес)"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
     </complexType>
 </schema>
