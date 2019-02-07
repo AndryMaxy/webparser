@@ -111,7 +111,6 @@ public abstract class ParserHandler implements DateParser {
                 certificateBuilder.buildExpirationDate(date);
                 break;
             case XMLData.Tag.COUNT:
-                //int count = Integer.parseInt(text);
                 medicinePackageBuilder.buildCount(text);
                 break;
             case XMLData.Tag.PRICE:
@@ -119,11 +118,9 @@ public abstract class ParserHandler implements DateParser {
                 medicinePackageBuilder.buildPrice(price);
                 break;
             case XMLData.Tag.DOSAGE_VALUE:
-                //int value = Integer.parseInt(text);
                 dosageBuilder.buildValue(text);
                 break;
             case XMLData.Tag.DOSAGE_PERIOD:
-                //int value = Integer.parseInt(text);
                 dosageBuilder.buildPeriod(text);
                 break;
         }
