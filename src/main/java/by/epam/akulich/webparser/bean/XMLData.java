@@ -1,9 +1,8 @@
-package by.epam.akulich.webparser;
+package by.epam.akulich.webparser.bean;
 
 public final class XMLData {
 
     public static final class Tag {
-        public static final String ROOT = "ms:medicines";
         public static final String MEDICINE = "medicine";
         public static final String NAME = "name";
         public static final String PRODUCER = "producer";

@@ -1,20 +1,9 @@
 package by.epam.akulich.webparser.bean;
 
-import java.util.Objects;
-
 public class MedicinePackage {
     private String count;
     private double price;
     private MedicinePackageType type;
-
-//    public int getCount() {
-//        return count;
-//    }
-//
-//    public void setCount(int count) {
-//        this.count = count;
-//    }
-
 
     public String getCount() {
         return count;
@@ -49,7 +38,7 @@ public class MedicinePackage {
             return false;
         }
         MedicinePackage that = (MedicinePackage) o;
-        return count == that.count &&
+        return count.equals(that.count) &&
                 Double.compare(that.price, price) == 0 &&
                 type == that.type;
     }
@@ -58,7 +47,6 @@ public class MedicinePackage {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        //result = prime * result + count;
         result = prime * result + (count == null ? 0 : count.hashCode());
         result = prime * result + (int) price;
         result = prime * result + (type == null ? 0 : type.hashCode());

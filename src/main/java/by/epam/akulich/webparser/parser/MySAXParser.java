@@ -12,20 +12,25 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.stream.events.StartElement;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+/**
+ * Так как я наследуюсь от класса ParserHandler, то не могу унаследоваться ещё и
+ * от класса DefaultHandler, чтобы переопределить его методы для SAX парсера,
+ * поэтому реализую интерфейс ContentHandler.
+ */
 
 public class MySAXParser extends ParserHandler implements IParser, ContentHandler {
 
     @Override
-    public List<Medicine> parse(File file) throws ParserConfigurationException, SAXException, IOException {
+    public List<Medicine> parse(InputStream inputStream) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
         XMLReader reader = saxParser.getXMLReader();
         reader.setContentHandler(this);
-        reader.parse(new InputSource(new FileInputStream(file)));
+        reader.parse(new InputSource(inputStream));
         return medicines;
     }
 
@@ -41,17 +46,17 @@ public class MySAXParser extends ParserHandler implements IParser, ContentHandle
 
     @Override
     public void setDocumentLocator(Locator locator) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void endPrefixMapping(String prefix) throws SAXException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -67,7 +72,6 @@ public class MySAXParser extends ParserHandler implements IParser, ContentHandle
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         String text = new String(ch, start, length);
-
         if (text.contains("<") | currentElement == null) {
             return;
         }
@@ -76,17 +80,17 @@ public class MySAXParser extends ParserHandler implements IParser, ContentHandle
 
     @Override
     public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void processingInstruction(String target, String data) throws SAXException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void skippedEntity(String name) throws SAXException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override

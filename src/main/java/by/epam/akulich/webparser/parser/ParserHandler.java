@@ -1,9 +1,8 @@
 package by.epam.akulich.webparser.parser;
 
-import by.epam.akulich.webparser.XMLData;
+import by.epam.akulich.webparser.bean.XMLData;
 import by.epam.akulich.webparser.bean.Certificate;
 import by.epam.akulich.webparser.bean.Dosage;
-import by.epam.akulich.webparser.bean.DosageType;
 import by.epam.akulich.webparser.bean.Medicine;
 import by.epam.akulich.webparser.bean.MedicineGroup;
 import by.epam.akulich.webparser.bean.MedicinePackage;
@@ -25,11 +24,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Я создал данный абстрактный класс т.к. по сути SAX и StAX парсеры задают значения в объекты
+ * по одной логике, таким образом я вынес её сюда, а затем унаследовался.
+ */
 public abstract class ParserHandler implements DateParser {
 
     private static final Logger LOGGER = LogManager.getLogger(ParserHandler.class.getSimpleName());
     String currentElement;
-    protected List<Medicine> medicines;
+    List<Medicine> medicines;
     private MedicineBuilder medicineBuilder;
     private VersionBuilder versionBuilder;
     private CertificateBuilder certificateBuilder;
@@ -37,6 +40,8 @@ public abstract class ParserHandler implements DateParser {
     private DosageBuilder dosageBuilder;
     private List<Version> versions;
     private List<String> analogs;
+
+    protected abstract String getAttributeValue(String attributeName, Attributes attributes, StartElement element);
 
     void handleStartDocument() {
         medicineBuilder = new MedicineBuilder();
@@ -77,9 +82,6 @@ public abstract class ParserHandler implements DateParser {
                 break;
         }
     }
-
-    protected abstract String getAttributeValue(String attributeName, Attributes attributes, StartElement element);
-
 
     void handleCharacters(String text) {
         LocalDate date;

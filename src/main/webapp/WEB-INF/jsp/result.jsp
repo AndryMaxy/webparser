@@ -54,8 +54,8 @@
             <td><c:out value="${medicine.versions[0].medicinePackage.count}"/></td>
             <td><c:out value="${medicine.versions[0].medicinePackage.price}"/></td>
             <td><c:out value="${medicine.versions[0].medicinePackage.type.name}"/></td>
-            <td><c:out value="${medicine.versions[0].dosage.period}"/></td>
             <td><c:out value="${medicine.versions[0].dosage.value}"/></td>
+            <td><c:out value="${medicine.versions[0].dosage.period}"/></td>
         </tr>
         <c:forEach items="${medicine.versions}" begin="1" end="${medicine.versionsSize - 1}" var="version">
             <tr>
@@ -67,8 +67,8 @@
                 <td><c:out value="${version.medicinePackage.count}"/></td>
                 <td><c:out value="${version.medicinePackage.price}"/></td>
                 <td><c:out value="${version.medicinePackage.type.name}"/></td>
-                <td><c:out value="${version.dosage.period}"/></td>
                 <td><c:out value="${version.dosage.value}"/></td>
+                <td><c:out value="${version.dosage.period}"/></td>
             </tr>
         </c:forEach>
     </c:forEach>

@@ -4,8 +4,33 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <context-param>
-    <param-name>log4jConfiguration</param-name>
-    <param-value>WEB-INF/log4j2-test.xml</param-value>
-  </context-param>
+
+  <servlet >
+    <servlet-name>result</servlet-name>
+    <jsp-file>/WEB-INF/jsp/result.jsp</jsp-file>
+  </servlet>
+
+  <servlet >
+    <servlet-name>indnx</servlet-name>
+    <display-name>index</display-name>
+    <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>result</servlet-name>
+    <url-pattern>/result</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>indnx</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>/index.jsp</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/jsp/Error.jsp</location>
+  </error-page>
 </web-app>

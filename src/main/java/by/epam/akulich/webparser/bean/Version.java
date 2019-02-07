@@ -1,7 +1,5 @@
 package by.epam.akulich.webparser.bean;
 
-import java.util.Objects;
-
 public class Version {
     private VersionType versionType;
     private Certificate certificate;
@@ -18,6 +16,10 @@ public class Version {
 
     public MedicinePackage getMedicinePackage() {
         return medicinePackage;
+    }
+
+    public Dosage getDosage() {
+        return dosage;
     }
 
     public void setVersionType(VersionType versionType) {

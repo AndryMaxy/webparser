@@ -1,6 +1,5 @@
 package by.epam.akulich.webparser.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Medicine {
@@ -58,9 +57,6 @@ public class Medicine {
     }
 
     public void setVersions(List<Version> versions) {
-        if (this.versions == null) {
-            this.versions = new ArrayList<>();
-        }
         this.versions = versions;
     }
 

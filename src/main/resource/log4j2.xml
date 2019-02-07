@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info">
     <Properties>
-        <Property name="log_dir">/classes/log/${date:yyyy_MM_dd_HH_mm_ss}</Property>
+        <Property name="log_dir">${log4j:configParentLocation}/log/${date:yyyy_MM_dd_HH_mm_ss}</Property>
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">

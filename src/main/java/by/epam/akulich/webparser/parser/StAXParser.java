@@ -2,7 +2,6 @@ package by.epam.akulich.webparser.parser;
 
 import by.epam.akulich.webparser.bean.Medicine;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
@@ -11,18 +10,15 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public class StAXParser extends ParserHandler implements IParser {
 
     @Override
-    public List<Medicine> parse(File file) throws SAXException, XMLStreamException {
+    public List<Medicine> parse(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        Source source = new StreamSource(file);
-        XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(source);
+        XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
         while (xmlEventReader.hasNext()) {
             XMLEvent event = xmlEventReader.nextEvent();
             String name;

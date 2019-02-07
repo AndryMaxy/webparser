@@ -1,9 +1,8 @@
 package by.epam.akulich.webparser.parser;
 
-import by.epam.akulich.webparser.XMLData;
+import by.epam.akulich.webparser.bean.XMLData;
 import by.epam.akulich.webparser.bean.Certificate;
 import by.epam.akulich.webparser.bean.Dosage;
-import by.epam.akulich.webparser.bean.DosageType;
 import by.epam.akulich.webparser.bean.Medicine;
 import by.epam.akulich.webparser.bean.MedicineGroup;
 import by.epam.akulich.webparser.bean.MedicinePackage;
@@ -11,7 +10,11 @@ import by.epam.akulich.webparser.bean.MedicinePackageType;
 import by.epam.akulich.webparser.bean.MedicineRegister;
 import by.epam.akulich.webparser.bean.Version;
 import by.epam.akulich.webparser.bean.VersionType;
+import by.epam.akulich.webparser.builder.CertificateBuilder;
+import by.epam.akulich.webparser.builder.DosageBuilder;
 import by.epam.akulich.webparser.builder.MedicineBuilder;
+import by.epam.akulich.webparser.builder.MedicinePackageBuilder;
+import by.epam.akulich.webparser.builder.VersionBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -23,8 +26,8 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +39,11 @@ public class DOMParser implements IParser, DateParser {
     private List<Medicine> medicines = new ArrayList<>();
 
     @Override
-    public List<Medicine> parse(File file) throws SAXException, ParserConfigurationException, IOException {
+    public List<Medicine> parse(InputStream inputStream) throws SAXException, ParserConfigurationException, IOException {
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder documentBuilder = builderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(file);
+        Document document = documentBuilder.parse(inputStream);
 
         NodeList medicineList = document.getElementsByTagName(XMLData.Tag.MEDICINE);
         for (int i = 0; i < medicineList.getLength(); i++) {
@@ -54,165 +57,123 @@ public class DOMParser implements IParser, DateParser {
 
     private Medicine buildMedicine(Element medicineElement){
         String code = medicineElement.getAttribute(XMLData.Attribute.CODE);
-        medicineBuilder.buildCode(code);
-        NodeList medicineChildren = medicineElement.getChildNodes();
-        for (int j = 0; j < medicineChildren.getLength(); j++) {
-            Node node = medicineChildren.item(j);
-            if (!isElement(node)) {
-                continue;
-            }
-            Element element = (Element) node;
-            switch (element.getNodeName()) {
-                case XMLData.Tag.NAME:
-                    medicineBuilder.buildName(element.getTextContent());
-                    break;
-                case XMLData.Tag.PRODUCER:
-                    medicineBuilder.buildProducer(element.getTextContent());
-                    break;
-                case XMLData.Tag.GROUP:
-                    String group = element.getTextContent();
-                    medicineBuilder.buildGroup(MedicineGroup.valueByString(group));
-                    break;
-                case XMLData.Tag.ANALOGS:
-                    List<String> analogs = createAnalogs(element);
-                    medicineBuilder.buildAnalogs(analogs);
-                    break;
-                case XMLData.Tag.VERSIONS:
-                    List<Version> versions = createVersions(element);
-                    medicineBuilder.buildVersions(versions);
-            }
-        }
-        return medicineBuilder.build();
+
+        String name = getTextContent(medicineElement, XMLData.Tag.NAME);
+        String producer = getTextContent(medicineElement, XMLData.Tag.PRODUCER);
+
+        NodeList analogList = medicineElement.getElementsByTagName(XMLData.Tag.ANALOG_NAME);
+        List<String> analogs = getAnalogs(analogList);
+
+        String group = getTextContent(medicineElement, XMLData.Tag.GROUP);
+        MedicineGroup medicineGroup = MedicineGroup.valueByString(group);
+
+        NodeList versionList = medicineElement.getElementsByTagName(XMLData.Tag.VERSION);
+        List<Version> versions = getVersions(versionList);
+        return medicineBuilder.buildCode(code)
+                .buildName(name)
+                .buildProducer(producer)
+                .buildAnalogs(analogs)
+                .buildGroup(medicineGroup)
+                .buildVersions(versions)
+                .build();
     }
 
-    private List<String> createAnalogs(Node node) {
-        NodeList analogs = node.getChildNodes();
+    private List<String> getAnalogs(NodeList analogs) {
         List<String> analogsName = new ArrayList<>();
         for (int i = 0; i < analogs.getLength(); i++) {
             Node child = analogs.item(i);
-            if (child.getNodeName().equals(XMLData.Tag.ANALOG_NAME)) {
-                String content = child.getTextContent();
-                analogsName.add(content);
-            }
+            String content = child.getTextContent();
+            analogsName.add(content);
         }
         return analogsName;
     }
 
-    private List<Version> createVersions(Element element) {
-        NodeList versions = element.getChildNodes();
+    private List<Version> getVersions(NodeList versions) {
         List<Version> versionList = new ArrayList<>();
         for (int i = 0; i < versions.getLength(); i++) {
-            Node versionNode = versions.item(i);
-            if (!isElement(versionNode)) {
-                continue;
-            }
-            Element versionElement = (Element) versionNode;
-            Version version = createVersion(versionElement);
+            Element versionEl = (Element) versions.item(i);
+            Version version = buildVersion(versionEl);
             versionList.add(version);
         }
         return versionList;
     }
 
-    private Version createVersion(Element versionElement){
-        String form = versionElement.getAttribute(XMLData.Attribute.FORM);
-        VersionType versionType = VersionType.valueByString(form);
-        Version version = new Version();
-        version.setVersionType(versionType);
-        NodeList versionChildren = versionElement.getChildNodes();
-        for (int j = 0; j < versionChildren.getLength(); j++) {
-            Node node = versionChildren.item(j);
-            if (!isElement(node)) {
-                continue;
-            }
-            Element childElement = (Element) node;
-            switch (childElement.getNodeName()) {
-                case XMLData.Tag.CERTIFICATE:
-                    Certificate certificate = createCertificate(childElement);
-                    version.setCertificate(certificate);
-                    break;
-                case XMLData.Tag.PACKAGE:
-                    MedicinePackage medicinePackage = createMedicinePackage(childElement);
-                    version.setMedicinePackage(medicinePackage);
-                    break;
-                case XMLData.Tag.DOSAGE:
-                    Dosage dosage = createDosage(childElement);
-                    version.setDosage(dosage);
-                    System.out.println(dosage.getValue());
-                    System.out.println(dosage.getPeriod());
-                    break;
-            }
-        }
-        return version;
+    private Version buildVersion(Element element) {
+        VersionBuilder builder = new VersionBuilder();
+
+        String versionTypeStr = element.getAttribute(XMLData.Attribute.FORM);
+        VersionType versionType = VersionType.valueByString(versionTypeStr);
+
+        Element certificateEl = toElement(element, XMLData.Tag.CERTIFICATE);
+        Certificate certificate = buildCertificate(certificateEl);
+
+        Element packageEl = toElement(element, XMLData.Tag.PACKAGE);
+        MedicinePackage medicinePackage = buildMedicinePackage(packageEl);
+
+        Dosage dosage = buildDosage(element);
+        return builder.buildType(versionType)
+                .buildCertificate(certificate)
+                .buildMedicinePackage(medicinePackage)
+                .buildDosage(dosage)
+                .build();
     }
 
+    private Dosage buildDosage(Element element) {
+        DosageBuilder builder = new DosageBuilder();
 
-    private Certificate createCertificate(Element element) {
-        String register = element.getAttribute(XMLData.Attribute.REGISTER);
-        MedicineRegister medicineRegister = MedicineRegister.valueByString(register);
-        Certificate certificate = new Certificate();
-        certificate.setRegister(medicineRegister);
-        NodeList certificateList = element.getChildNodes();
-        for (int i = 0; i < certificateList.getLength(); i++) {
-            Node child = certificateList.item(i);
-            LocalDate date;
-            switch (child.getNodeName()) {
-                case XMLData.Tag.NUMBER:
-                    String number = child.getTextContent();
-                    certificate.setNumber(number);
-                    break;
-                case XMLData.Tag.ISSUE_DATE:
-                    date = parseDate(child.getTextContent());
-                    certificate.setIssueDate(date);
-                    break;
-                case XMLData.Tag.EXPIRATION_DATE:
-                    date = parseDate(child.getTextContent());
-                    certificate.setExpirationDate(date);
-                    break;
-            }
-        }
-        return certificate;
+        String dosageValue = getTextContent(element, XMLData.Tag.DOSAGE_VALUE);
+        String dosagePeriod = getTextContent(element, XMLData.Tag.DOSAGE_PERIOD);
+
+        return builder.buildValue(dosageValue)
+                .buildPeriod(dosagePeriod)
+                .build();
     }
 
-    private MedicinePackage createMedicinePackage(Element element) {
-        String packageType = element.getAttribute(XMLData.Attribute.PACKAGE_TYPE);
-        MedicinePackageType medicinePackageType = MedicinePackageType.valueByString(packageType);
-        MedicinePackage medicinePackage = new MedicinePackage();
-        medicinePackage.setType(medicinePackageType);
-        NodeList childNodes = element.getChildNodes();
-        for (int i = 0; i < childNodes.getLength(); i++) {
-            Node child = childNodes.item(i);
-            switch (child.getNodeName()) {
-                case XMLData.Tag.COUNT:
-                    //int count = Integer.parseInt(child.getTextContent());
-                    medicinePackage.setCount(child.getTextContent());
-                    break;
-                case XMLData.Tag.PRICE:
-                    double price = Double.parseDouble(child.getTextContent());
-                    medicinePackage.setPrice(price);
-                    break;
-            }
-        }
-        return medicinePackage;
+    private MedicinePackage buildMedicinePackage(Element element){
+        MedicinePackageBuilder builder = new MedicinePackageBuilder();
+
+        String packageTypeStr = element.getAttribute(XMLData.Attribute.PACKAGE_TYPE);
+        MedicinePackageType packageType = MedicinePackageType.valueByString(packageTypeStr);
+
+        String count = getTextContent(element, XMLData.Tag.COUNT);
+        String priceStr = getTextContent(element, XMLData.Tag.PRICE);
+        double price = Double.parseDouble(priceStr);
+
+        return builder.buildMedicinePackageType(packageType)
+                .buildCount(count)
+                .buildPrice(price)
+                .build();
     }
 
-    private Dosage createDosage(Element element) {
-        NodeList child = element.getChildNodes();
-        Dosage dosage = new Dosage();
-        for (int i = 0; i < child.getLength(); i++) {
-            Node node = child.item(i);
-            switch (node.getNodeName()) {
-                case XMLData.Tag.DOSAGE_VALUE:
-                    dosage.setValue(node.getTextContent());
-                    break;
-                case XMLData.Tag.DOSAGE_PERIOD:
-                    dosage.setPeriod(node.getTextContent());
-                    break;
-            }
-        }
-        return dosage;
+    private Certificate buildCertificate(Element element) {
+        CertificateBuilder builder = new CertificateBuilder();
+
+        String registerStr = element.getAttribute(XMLData.Attribute.REGISTER);
+        MedicineRegister register = MedicineRegister.valueByString(registerStr);
+
+        String number = getTextContent(element, XMLData.Tag.NUMBER);
+
+        String issueDateStr = getTextContent(element, XMLData.Tag.ISSUE_DATE);
+        LocalDate issueDate = parseDate(issueDateStr);
+
+        String expirationDateStr = getTextContent(element, XMLData.Tag.EXPIRATION_DATE);
+        LocalDate expirationDate = parseDate(expirationDateStr);
+
+        return builder.buildNumber(number)
+                .buildRegister(register)
+                .buildIssueDate(issueDate)
+                .buildExpirationDate(expirationDate)
+                .build();
     }
 
-    private boolean isElement(Node node) {
-        return node.getNodeType() == Node.ELEMENT_NODE;
+    private String getTextContent(Element element, String tag){
+        NodeList list = element.getElementsByTagName(tag);
+        Node node = list.item(0);
+        return node.getTextContent();
+    }
+
+    private Element toElement(Element inputElement, String tag){
+        NodeList nodeList = inputElement.getElementsByTagName(tag);
+        return (Element) nodeList.item(0);
     }
 }

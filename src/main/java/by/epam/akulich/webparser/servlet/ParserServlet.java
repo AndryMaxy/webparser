@@ -2,7 +2,6 @@ package by.epam.akulich.webparser.servlet;
 
 import by.epam.akulich.webparser.bean.Medicine;
 import by.epam.akulich.webparser.factory.ParserFactory;
-import by.epam.akulich.webparser.generator.FileGenerator;
 import by.epam.akulich.webparser.parser.IParser;
 import by.epam.akulich.webparser.validator.XMLValidator;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -30,41 +28,34 @@ public class ParserServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(ParserServlet.class.getSimpleName());
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Part filePart = req.getPart("file");
         String parserName = req.getParameter("parser");
-        InputStream fileContent = filePart.getInputStream();
-
-        File scheme = new File(ParserServlet.class.getResource("/medicine-scheme.xsd").getPath());
-        FileGenerator generator = new FileGenerator();
-        File xml = generator.generateXMLFile(fileContent);
+        InputStream fileContent1 = filePart.getInputStream();
+        InputStream fileContent2 = filePart.getInputStream();
 
         XMLValidator validator = new XMLValidator();
-        boolean isValid = validator.validate(xml, scheme);
+        boolean isValid =validator.validate(fileContent1);
 
         if (isValid) {
             IParser parser = ParserFactory.getInstance().getParser(parserName);
             List<Medicine> medicines;
             try {
-                medicines = parser.parse(xml);
+                medicines = parser.parse(fileContent2);
             } catch (XMLStreamException | SAXException | ParserConfigurationException e) {
                 LOGGER.error("Parsing exception.", e);
                 return;
             }
-            deleteFile(xml);
             req.setAttribute("medicines", medicines);
             req.getRequestDispatcher("/WEB-INF/jsp/result.jsp").forward(req, resp);
         } else {
             LOGGER.info("XML file is not valid");
             req.getRequestDispatcher("/WEB-INF/jsp/notValid.jsp").forward(req,resp);
-        }
-    }
-
-    private void deleteFile(File file) {
-        if (file.delete()) {
-            LOGGER.info("Temp file deleted");
-        } else {
-            LOGGER.info("Temp file is not deleted");
         }
     }
 }
