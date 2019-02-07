@@ -1,6 +1,5 @@
 package by.epam.akulich.webparser.validator;
 
-import by.epam.akulich.webparser.servlet.ParserServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;

@@ -4,7 +4,8 @@ public enum VersionType {
     CAPSULES("Капсулы"),
     TABLETS("Таблетки"),
     POWDER("Порошок"),
-    DROPS("Капли");
+    DROPS("Капли"),
+    SPRAY("Спрей");
 
     private String name;
 

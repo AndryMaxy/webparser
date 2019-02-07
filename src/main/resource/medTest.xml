@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ms:medicines xmlns:ms="medicines">
+    <medicine code="med_2348974">
+        <name>Адицефр</name>
+        <producer>Фармакар</producer>
+        <group>Антибиотики</group>
+        <analogs>
+            <analogName>Биотаксим</analogName>
+            <analogName>Зинекс</analogName>
+        </analogs>
+        <versions>
+            <version form="Капсулы">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_A29</number>
+                    <issueDate>2015-10-20</issueDate>
+                    <expirationDate>2020-10-20</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>10 шт</count>
+                    <price>25.85</price>
+                </package>
+                <dosage>
+                    <value>1 шт</value>
+                    <period>2 нед</period>
+                </dosage>
+            </version>
+            <version form="Порошок">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_B29</number>
+                    <issueDate>2018-05-25</issueDate>
+                    <expirationDate>2023-05-25</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>200 мг</count>
+                    <price>15.85</price>
+                </package>
+                <dosage>
+                    <value>14 мг</value>
+                    <period>7 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_8347775">
+        <name>Азикар</name>
+        <producer>Кармакар</producer>
+        <group>Витамины</group>
+        <analogs>
+            <analogName>Азитромицин</analogName>
+        </analogs>
+        <versions>
+            <version form="Капсулы">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_D39</number>
+                    <issueDate>2017-12-31</issueDate>
+                    <expirationDate>2022-12-31</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>10 шт</count>
+                    <price>20.55</price>
+                </package>
+                <dosage>
+                    <value>3 шт</value>
+                    <period>5 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_42775">
+        <name>Азикар</name>
+        <producer>Кармакар</producer>
+        <group>Витамины</group>
+        <analogs>
+            <analogName>Азитромицин</analogName>
+        </analogs>
+        <versions>
+            <version form="Капли">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_C89</number>
+                    <issueDate>2018-05-31</issueDate>
+                    <expirationDate>2024-07-31</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>10 шт</count>
+                    <price>20.55</price>
+                </package>
+                <dosage>
+                    <value>3 шт</value>
+                    <period>5 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+</ms:medicines>

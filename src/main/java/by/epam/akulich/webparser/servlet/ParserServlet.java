@@ -1,12 +1,12 @@
 package by.epam.akulich.webparser.servlet;
 
 import by.epam.akulich.webparser.bean.Medicine;
+import by.epam.akulich.webparser.exception.ParserException;
 import by.epam.akulich.webparser.factory.ParserFactory;
 import by.epam.akulich.webparser.parser.IParser;
 import by.epam.akulich.webparser.validator.XMLValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -28,11 +26,6 @@ public class ParserServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(ParserServlet.class.getSimpleName());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Part filePart = req.getPart("file");
         String parserName = req.getParameter("parser");
@@ -40,15 +33,15 @@ public class ParserServlet extends HttpServlet {
         InputStream fileContent2 = filePart.getInputStream();
 
         XMLValidator validator = new XMLValidator();
-        boolean isValid =validator.validate(fileContent1);
+        boolean isValid = validator.validate(fileContent1);
 
         if (isValid) {
             IParser parser = ParserFactory.getInstance().getParser(parserName);
             List<Medicine> medicines;
             try {
                 medicines = parser.parse(fileContent2);
-            } catch (XMLStreamException | SAXException | ParserConfigurationException e) {
-                LOGGER.error("Parsing exception.", e);
+            } catch (ParserException e) {
+                LOGGER.error("Parser exception.", e);
                 return;
             }
             req.setAttribute("medicines", medicines);

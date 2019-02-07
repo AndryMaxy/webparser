@@ -5,12 +5,15 @@
   Time: 22:40
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Не существует</title>
+    <title>???</title>
 </head>
 <body>
-Извините данной страницы не существует.
+Что-то пошло не так.
+<form action="helper" method="get">
+    <input type="submit" name="main" value="На главную">
+</form>
 </body>
 </html>

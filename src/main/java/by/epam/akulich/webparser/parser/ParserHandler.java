@@ -30,7 +30,7 @@ import java.util.List;
  */
 public abstract class ParserHandler implements DateParser {
 
-    private static final Logger LOGGER = LogManager.getLogger(ParserHandler.class.getSimpleName());
+    private final Logger LOGGER = LogManager.getLogger(getClass().getSimpleName());
     String currentElement;
     List<Medicine> medicines;
     private MedicineBuilder medicineBuilder;
@@ -44,11 +44,7 @@ public abstract class ParserHandler implements DateParser {
     protected abstract String getAttributeValue(String attributeName, Attributes attributes, StartElement element);
 
     void handleStartDocument() {
-        medicineBuilder = new MedicineBuilder();
-        versionBuilder = new VersionBuilder();
-        certificateBuilder = new CertificateBuilder();
-        medicinePackageBuilder = new MedicinePackageBuilder();
-        dosageBuilder = new DosageBuilder();
+        LOGGER.info("Parsing started");
         medicines = new ArrayList<>();
     }
 
@@ -56,6 +52,7 @@ public abstract class ParserHandler implements DateParser {
         currentElement = qName;
         switch (currentElement) {
             case XMLData.Tag.MEDICINE:
+                medicineBuilder = new MedicineBuilder();
                 String code = getAttributeValue(XMLData.Attribute.CODE, attributes, element);
                 medicineBuilder.buildCode(code);
                 break;
@@ -63,6 +60,7 @@ public abstract class ParserHandler implements DateParser {
                 analogs = new ArrayList<>();
                 break;
             case XMLData.Tag.VERSIONS:
+                versionBuilder = new VersionBuilder();
                 versions = new ArrayList<>();
                 break;
             case XMLData.Tag.VERSION:
@@ -71,14 +69,19 @@ public abstract class ParserHandler implements DateParser {
                 versionBuilder.buildType(versionType);
                 break;
             case XMLData.Tag.CERTIFICATE:
+                certificateBuilder = new CertificateBuilder();
                 String register = getAttributeValue(XMLData.Attribute.REGISTER, attributes, element);
                 MedicineRegister medicineRegister = MedicineRegister.valueByString(register);
                 certificateBuilder.buildRegister(medicineRegister);
                 break;
             case XMLData.Tag.PACKAGE:
+                medicinePackageBuilder = new MedicinePackageBuilder();
                 String medicinePackage = getAttributeValue(XMLData.Attribute.PACKAGE_TYPE, attributes, element);
                 MedicinePackageType medicinePackageType = MedicinePackageType.valueByString(medicinePackage);
                 medicinePackageBuilder.buildMedicinePackageType(medicinePackageType);
+                break;
+            case XMLData.Tag.DOSAGE:
+                dosageBuilder = new DosageBuilder();
                 break;
         }
     }

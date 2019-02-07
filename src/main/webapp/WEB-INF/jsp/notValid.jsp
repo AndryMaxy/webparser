@@ -5,15 +5,15 @@
   Time: 23:00
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Неудача</title>
 </head>
 <body>
-<h3>Ваша схема не прошла валидацию.</h3>
+<h3>Ваш XML не прошёл валидацию.</h3>
 <p>Вернитесь на главную и выберите другой XML файл</p>
-<form action="main" method="get">
+<form action="helper" method="get">
     <input type="submit" name="main" value="На главную">
 </form>
 </body>

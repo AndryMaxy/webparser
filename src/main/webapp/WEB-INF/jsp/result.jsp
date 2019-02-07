@@ -74,5 +74,8 @@
     </c:forEach>
     </tbody>
 </table>
+<form action="helper" style="text-align: center">
+    <p><input type="submit" value="На главную"  align="center" size="50" style="height: 80px; width: 160px"></p>
+</form>
 </body>
 </html>

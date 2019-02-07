@@ -4,7 +4,8 @@ public enum MedicineGroup {
     ANTIBIOTICS("Антибиотики"),
     VITAMINS("Витамины"),
     FRO_THROAT("Для горла"),
-    FOR_NOSE("Для носа");
+    FOR_NOSE("Для носа"),
+    DIARRHEA("От диареи");
 
     private String name;
 

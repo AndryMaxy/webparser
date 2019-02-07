@@ -15,6 +15,7 @@ import by.epam.akulich.webparser.builder.DosageBuilder;
 import by.epam.akulich.webparser.builder.MedicineBuilder;
 import by.epam.akulich.webparser.builder.MedicinePackageBuilder;
 import by.epam.akulich.webparser.builder.VersionBuilder;
+import by.epam.akulich.webparser.exception.ParserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -39,12 +40,18 @@ public class DOMParser implements IParser, DateParser {
     private List<Medicine> medicines = new ArrayList<>();
 
     @Override
-    public List<Medicine> parse(InputStream inputStream) throws SAXException, ParserConfigurationException, IOException {
+    public List<Medicine> parse(InputStream inputStream) throws ParserException {
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         builderFactory.setIgnoringElementContentWhitespace(true);
-        DocumentBuilder documentBuilder = builderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(inputStream);
 
+        DocumentBuilder documentBuilder;
+        Document document;
+        try {
+            documentBuilder = builderFactory.newDocumentBuilder();
+            document = documentBuilder.parse(inputStream);
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            throw new ParserException();
+        }
         NodeList medicineList = document.getElementsByTagName(XMLData.Tag.MEDICINE);
         for (int i = 0; i < medicineList.getLength(); i++) {
             Element medicineElement = (Element) medicineList.item(i);

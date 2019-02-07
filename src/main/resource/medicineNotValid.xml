@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ms:medicines xmlns:ms="medicines">
+    <medicine code="med_2348974">
+        <name>Адицефр</name>
+        <producer>Фармакар</producer>
+        <group>Антибиотики</group>
+        <group>Антибиотики</group>
+        <analogs>
+            <analogName>Биотаксим</analogName>
+            <analogName>Зинекс</analogName>
+        </analogs>
+        <versions>
+            <version form="Капсулы">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_A29</number>
+                    <issueDate>2015-10-20</issueDate>
+                    <expirationDate>2020-10-20</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>10 шт</count>
+                    <price>25.85</price>
+                </package>
+                <dosage>
+                    <value>1 шт</value>
+                    <period>2 нед</period>
+                </dosage>
+            </version>
+            <version form="Порошок">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_B29</number>
+                    <issueDate>2018-05-25</issueDate>
+                    <expirationDate>2023-05-25</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>200 мг</count>
+                    <price>15.85</price>
+                </package>
+                <dosage>
+                    <value>14 мг</value>
+                    <period>7 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_8348774">
+        <name>Азикар</name>
+        <producer>Фармакар</producer>
+        <group>Антибиотики</group>
+        <analogs>
+            <analogName>Азитромицин</analogName>
+        </analogs>
+        <versions>
+            <version form="Капсулы">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_D39</number>
+                    <issueDate>2015-10-20</issueDate>
+                    <expirationDate>2020-10-20</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>10 шт</count>
+                    <price>20.55</price>
+                </package>
+                <dosage>
+                    <value>3 шт</value>
+                    <period>5 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_8458774">
+        <name>Амоксициллин</name>
+        <producer>Фармтехнология</producer>
+        <group>Антибиотики</group>
+        <analogs>
+            <analogName>Азитромицин</analogName>
+            <analogName>Биорацеф</analogName>
+            <analogName>Бициллин-5</analogName>
+        </analogs>
+        <versions>
+            <version form="Таблетки">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_DA27</number>
+                    <issueDate>2016-09-21</issueDate>
+                    <expirationDate>2021-09-21</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>20 шт</count>
+                    <price>5.87</price>
+                </package>
+                <dosage>
+                    <value>5 мг</value>
+                    <period>2 нед</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_7798774">
+        <name>Аугментин</name>
+        <producer>Фармасьютикалз</producer>
+        <group>Антибиотики</group>
+        <analogs>
+            <analogName>Аугментин ес</analogName>
+        </analogs>
+        <versions>
+            <version form="Таблетки">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AA04</number>
+                    <issueDate>2015-10-20</issueDate>
+                    <expirationDate>2020-10-20</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>14 шт</count>
+                    <price>15.84</price>
+                </package>
+                <dosage>
+                    <value>3 шт</value>
+                    <period>12 дн</period>
+                </dosage>
+            </version>
+            <version form="Порошок">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_AB04</number>
+                    <issueDate>2017-01-05</issueDate>
+                    <expirationDate>2022-01-05</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>400 мг</count>
+                    <price>13.10</price>
+                </package>
+                <dosage>
+                    <value>25 мг</value>
+                    <period>7 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+</ms:medicines>

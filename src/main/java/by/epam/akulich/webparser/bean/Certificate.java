@@ -1,7 +1,6 @@
 package by.epam.akulich.webparser.bean;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Certificate {
     private String number;

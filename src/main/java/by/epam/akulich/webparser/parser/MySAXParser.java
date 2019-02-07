@@ -1,6 +1,7 @@
 package by.epam.akulich.webparser.parser;
 
 import by.epam.akulich.webparser.bean.Medicine;
+import by.epam.akulich.webparser.exception.ParserException;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -25,22 +26,28 @@ import java.util.List;
 public class MySAXParser extends ParserHandler implements IParser, ContentHandler {
 
     @Override
-    public List<Medicine> parse(InputStream inputStream) throws ParserConfigurationException, SAXException, IOException {
+    public List<Medicine> parse(InputStream inputStream) throws ParserException, IOException {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        SAXParser saxParser = saxParserFactory.newSAXParser();
-        XMLReader reader = saxParser.getXMLReader();
-        reader.setContentHandler(this);
-        reader.parse(new InputSource(inputStream));
+        SAXParser saxParser;
+        XMLReader reader;
+        try {
+            saxParser = saxParserFactory.newSAXParser();
+            reader = saxParser.getXMLReader();
+            reader.setContentHandler(this);
+            reader.parse(new InputSource(inputStream));
+        } catch (ParserConfigurationException | SAXException e) {
+            throw new ParserException();
+        }
         return medicines;
     }
 
     @Override
-    public void startDocument() throws SAXException {
+    public void startDocument() {
         handleStartDocument();
     }
 
     @Override
-    public void endDocument() throws SAXException {
+    public void endDocument() {
         handleEndDocument();
     }
 
@@ -48,23 +55,23 @@ public class MySAXParser extends ParserHandler implements IParser, ContentHandle
     public void setDocumentLocator(Locator locator) {}
 
     @Override
-    public void startPrefixMapping(String prefix, String uri) throws SAXException {}
+    public void startPrefixMapping(String prefix, String uri) {}
 
     @Override
-    public void endPrefixMapping(String prefix) throws SAXException {}
+    public void endPrefixMapping(String prefix) {}
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes atts) {
         handleStartElement(qName, atts, null);
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         handleEndElement(qName);
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         String text = new String(ch, start, length);
         if (text.contains("<") | currentElement == null) {
             return;
@@ -73,13 +80,13 @@ public class MySAXParser extends ParserHandler implements IParser, ContentHandle
     }
 
     @Override
-    public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {}
+    public void ignorableWhitespace(char[] ch, int start, int length) {}
 
     @Override
-    public void processingInstruction(String target, String data) throws SAXException {}
+    public void processingInstruction(String target, String data) {}
 
     @Override
-    public void skippedEntity(String name) throws SAXException {}
+    public void skippedEntity(String name) {}
 
     @Override
     protected String getAttributeValue(String attributeName, Attributes attributes, StartElement element) {

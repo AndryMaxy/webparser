@@ -133,4 +133,352 @@
             </version>
         </versions>
     </medicine>
+    <medicine code="med_11487">
+        <name>Аскорбиновая кислота</name>
+        <producer>Марбиофар</producer>
+        <group>Витамины</group>
+        <analogs>
+            <analogName>Аскортит</analogName>
+        </analogs>
+        <versions>
+            <version form="Таблетки">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_ABC39</number>
+                    <issueDate>2019-01-01</issueDate>
+                    <expirationDate>2028-12-31</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>20 шт</count>
+                    <price>0.70</price>
+                </package>
+                <dosage>
+                    <value>3 шт</value>
+                    <period>1 нед</period>
+                </dosage>
+            </version>
+            <version form="Порошок">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_CBA03</number>
+                    <issueDate>2016-01-01</issueDate>
+                    <expirationDate>2025-12-31</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>200 мг</count>
+                    <price>1.10</price>
+                </package>
+                <dosage>
+                    <value>25 мг</value>
+                    <period>1 нед</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_51489">
+        <name>Супервит</name>
+        <producer>Байер Консьюмер</producer>
+        <group>Витамины</group>
+        <analogs>
+            <analogName>Супрадин</analogName>
+        </analogs>
+        <versions>
+            <version form="Таблетки">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AA209</number>
+                    <issueDate>2019-01-01</issueDate>
+                    <expirationDate>2028-12-31</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>30 шт</count>
+                    <price>8.51</price>
+                </package>
+                <dosage>
+                    <value>1 шт</value>
+                    <period>2 нед</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_7891489">
+        <name>Триовит</name>
+        <producer>Крка</producer>
+        <group>Витамины</group>
+        <analogs>
+            <analogName>Ундевит</analogName>
+            <analogName>Алтайвитамины Россия</analogName>
+        </analogs>
+        <versions>
+            <version form="Капсулы">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AA274</number>
+                    <issueDate>2014-12-01</issueDate>
+                    <expirationDate>2019-12-01</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>30 шт</count>
+                    <price>10.73</price>
+                </package>
+                <dosage>
+                    <value>10 мг</value>
+                    <period>1 мес</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_771489">
+        <name>Лорекс</name>
+        <producer>Фармтехнология</producer>
+        <group>Для горла</group>
+        <analogs>
+            <analogName>Лорисилс</analogName>
+        </analogs>
+        <versions>
+            <version form="Спрей">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AA74</number>
+                    <issueDate>2015-11-21</issueDate>
+                    <expirationDate>2019-11-21</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>100 мл</count>
+                    <price>5.25</price>
+                </package>
+                <dosage>
+                    <value>10 мл</value>
+                    <period>5 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_91859">
+        <name>Анти-ангин</name>
+        <producer>Натур Продукт</producer>
+        <group>Для горла</group>
+        <analogs>
+            <analogName>Гексализ</analogName>
+        </analogs>
+        <versions>
+            <version form="Спрей">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AC74</number>
+                    <issueDate>2017-10-11</issueDate>
+                    <expirationDate>2012-10-11</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>150 мл</count>
+                    <price>9.20</price>
+                </package>
+                <dosage>
+                    <value>25 мл</value>
+                    <period>3 дн</period>
+                </dosage>
+            </version>
+            <version form="Таблетки">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_AB74</number>
+                    <issueDate>2016-12-21</issueDate>
+                    <expirationDate>2021-12-21</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>30 шт</count>
+                    <price>5.02</price>
+                </package>
+                <dosage>
+                    <value>2 шт</value>
+                    <period>2 нед</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_77452">
+        <name>Ингалипт</name>
+        <producer>Микрофарм</producer>
+        <group>Для горла</group>
+        <analogs>
+            <analogName>Ингалипт-н</analogName>
+        </analogs>
+        <versions>
+            <version form="Спрей">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AD74</number>
+                    <issueDate>2014-12-01</issueDate>
+                    <expirationDate>2019-12-01</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>200 мл</count>
+                    <price>7.25</price>
+                </package>
+                <dosage>
+                    <value>15 мл</value>
+                    <period>5 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_15145">
+        <name>Стопдиар</name>
+        <producer>Гедеон Рихтер</producer>
+        <group>От диареи</group>
+        <analogs>
+            <analogName>НЕТ</analogName>
+        </analogs>
+        <versions>
+            <version form="Таблетки">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AAA1</number>
+                    <issueDate>2015-01-01</issueDate>
+                    <expirationDate>2025-01-01</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>24 шт</count>
+                    <price>6.95</price>
+                </package>
+                <dosage>
+                    <value>2 шт</value>
+                    <period>3 дн</period>
+                </dosage>
+            </version>
+            <version form="Капсулы">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_AAA2</number>
+                    <issueDate>2016-01-01</issueDate>
+                    <expirationDate>2026-01-01</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>200 мг</count>
+                    <price>8.82</price>
+                </package>
+                <dosage>
+                    <value>25 мг</value>
+                    <period>5 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_45785">
+        <name>Месакол</name>
+        <producer>Сан Фарма</producer>
+        <group>От диареи</group>
+        <analogs>
+            <analogName>Нистатин</analogName>
+        </analogs>
+        <versions>
+            <version form="Таблетки">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_BB121</number>
+                    <issueDate>2017-01-01</issueDate>
+                    <expirationDate>2022-01-01</expirationDate>
+                </certificate>
+                <package packageType="Коробка">
+                    <count>50 шт</count>
+                    <price>21.77</price>
+                </package>
+                <dosage>
+                    <value>1 шт</value>
+                    <period>1 мес</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_443785">
+        <name>Аква марис</name>
+        <producer>Ядран</producer>
+        <group>Для носа</group>
+        <analogs>
+            <analogName>Аква марис плюс</analogName>
+        </analogs>
+        <versions>
+            <version form="Капли">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_B21</number>
+                    <issueDate>2017-05-06</issueDate>
+                    <expirationDate>2022-05-06</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>200 мл</count>
+                    <price>7.58</price>
+                </package>
+                <dosage>
+                    <value>10 мл</value>
+                    <period>1 мес</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_786452">
+        <name>Морезон</name>
+        <producer>Фарм-Центр</producer>
+        <group>Для носа</group>
+        <analogs>
+            <analogName>Мореназал</analogName>
+        </analogs>
+        <versions>
+            <version form="Капли">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_C21</number>
+                    <issueDate>2018-05-06</issueDate>
+                    <expirationDate>2023-05-06</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>150 мл</count>
+                    <price>4.52</price>
+                </package>
+                <dosage>
+                    <value>5 мл</value>
+                    <period>2 нед</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_74252">
+        <name>Називин</name>
+        <producer>Мерк</producer>
+        <group>Для носа</group>
+        <analogs>
+            <analogName>Назонекс</analogName>
+            <analogName>Назол адванс</analogName>
+        </analogs>
+        <versions>
+            <version form="Спрей">
+                <certificate register="Центр экспертиз и испытаний в здравоохранении">
+                    <number>cn_C5461</number>
+                    <issueDate>2017-04-05</issueDate>
+                    <expirationDate>2025-03-05</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>100 мл</count>
+                    <price>8.12</price>
+                </package>
+                <dosage>
+                    <value>10 мл</value>
+                    <period>1 нед</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+    <medicine code="med_184562">
+        <name>Смекта</name>
+        <producer>Ипсен Интернасьональ</producer>
+        <group>От диареи</group>
+        <analogs>
+            <analogName>Смектика</analogName>
+            <analogName>Смектит</analogName>
+        </analogs>
+        <versions>
+            <version form="Порошок">
+                <certificate register="Министерство здравохранения">
+                    <number>cn_A461</number>
+                    <issueDate>2018-08-08</issueDate>
+                    <expirationDate>2023-08-08</expirationDate>
+                </certificate>
+                <package packageType="Банка">
+                    <count>200 мг</count>
+                    <price>10.20</price>
+                </package>
+                <dosage>
+                    <value>25 мг</value>
+                    <period>3 дн</period>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
 </ms:medicines>
