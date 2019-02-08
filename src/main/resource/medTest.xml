@@ -66,29 +66,4 @@
             </version>
         </versions>
     </medicine>
-    <medicine code="med_42775">
-        <name>Азикар</name>
-        <producer>Кармакар</producer>
-        <group>Витамины</group>
-        <analogs>
-            <analogName>Азитромицин</analogName>
-        </analogs>
-        <versions>
-            <version form="Капли">
-                <certificate register="Центр экспертиз и испытаний в здравоохранении">
-                    <number>cn_C89</number>
-                    <issueDate>2018-05-31</issueDate>
-                    <expirationDate>2024-07-31</expirationDate>
-                </certificate>
-                <package packageType="Коробка">
-                    <count>10 шт</count>
-                    <price>20.55</price>
-                </package>
-                <dosage>
-                    <value>3 шт</value>
-                    <period>5 дн</period>
-                </dosage>
-            </version>
-        </versions>
-    </medicine>
 </ms:medicines>

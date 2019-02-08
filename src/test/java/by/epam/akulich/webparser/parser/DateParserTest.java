@@ -34,4 +34,11 @@ public class DateParserTest {
 
         Assert.assertEquals(actual, expected);
     }
+
+    /**
+     * Для теститрования default метода.
+     */
+    private class DateParserImpl implements DateParser {
+
+    }
 }
