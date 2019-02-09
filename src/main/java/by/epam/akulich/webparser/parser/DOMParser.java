@@ -50,7 +50,7 @@ public class DOMParser implements IParser, DateParser {
             documentBuilder = builderFactory.newDocumentBuilder();
             document = documentBuilder.parse(inputStream);
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new ParserException();
+            throw new ParserException(e);
         }
         NodeList medicineList = document.getElementsByTagName(XMLData.Tag.MEDICINE);
         for (int i = 0; i < medicineList.getLength(); i++) {

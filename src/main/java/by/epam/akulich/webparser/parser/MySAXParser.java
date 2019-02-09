@@ -36,7 +36,7 @@ public class MySAXParser extends ParserHandler implements IParser, ContentHandle
             reader.setContentHandler(this);
             reader.parse(new InputSource(inputStream));
         } catch (ParserConfigurationException | SAXException e) {
-            throw new ParserException();
+            throw new ParserException(e);
         }
         return medicines;
     }

@@ -25,7 +25,7 @@ public class StAXParser extends ParserHandler implements IParser {
                 readEvent(xmlEventReader);
             }
         } catch (XMLStreamException e) {
-            throw new ParserException();
+            throw new ParserException(e);
         }
         return medicines;
     }
