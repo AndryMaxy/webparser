@@ -49,7 +49,7 @@ public class ParserServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/jsp/result.jsp").forward(req, resp);
         } else {
             LOGGER.info("XML file is not valid");
-            req.getRequestDispatcher("/WEB-INF/jsp/notValid.jsp").forward(req,resp);
+            resp.sendRedirect("/invalid");
         }
     }
 }
