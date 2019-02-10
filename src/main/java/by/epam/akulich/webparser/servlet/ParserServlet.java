@@ -42,6 +42,7 @@ public class ParserServlet extends HttpServlet {
                 medicines = parser.parse(fileContent2);
             } catch (ParserException e) {
                 LOGGER.error("Parser exception.", e);
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return;
             }
             req.setAttribute("medicines", medicines);
